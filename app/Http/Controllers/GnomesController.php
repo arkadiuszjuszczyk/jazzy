@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gnome;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +24,7 @@ class GnomesController extends Controller
      *     )
      * )
      */
-    public function getGnomes()
+    public function getGnomes(): JsonResponse
     {
         $gnomes = Gnome::all();
         return response()->json($gnomes);
@@ -51,8 +52,10 @@ class GnomesController extends Controller
      *         ),
      *     )
      * )
+     * @param int $id
+     * @return JsonResponse
      */
-    public function getGnome(int $id)
+    public function getGnome(int $id): JsonResponse
     {
         $gnome = Gnome::find($id);
         return response()->json($gnome, $gnome ? 200 : 404);
@@ -96,8 +99,10 @@ class GnomesController extends Controller
      *         ),
      *     )
      * )
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function createGnome(Request $request)
+    public function createGnome(Request $request): JsonResponse
     {
         $data = $request->only(['name', 'age', 'strength']);
 
@@ -116,7 +121,7 @@ class GnomesController extends Controller
         }
 
         $gnome = Gnome::create($data);
-        $gnomeId = $gnome->id ?? null;
+        $gnomeId = $gnome['id'] ?? null;
 
         return response()->json(['id' => $gnomeId], 201);
     }
@@ -167,8 +172,11 @@ class GnomesController extends Controller
      *         ),
      *     )
      * )
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function updateGnome(Request $request, int $id)
+    public function updateGnome(Request $request, int $id): JsonResponse
     {
         $data = $request->only(['name', 'age', 'strength']);
 
@@ -212,8 +220,10 @@ class GnomesController extends Controller
      *         description="Gnome deleted."
      *     )
      * )
+     * @param int $id
+     * @return JsonResponse
      */
-    public function deleteGnome(int $id)
+    public function deleteGnome(int $id): JsonResponse
     {
         $gnome = Gnome::find($id);
 
