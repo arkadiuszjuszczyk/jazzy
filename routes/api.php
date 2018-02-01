@@ -1,15 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::get('/gnomes', 'GnomesController@getAllGnomes');
+Route::post('/gnome', 'GnomesController@createGnome');
+Route::get('/gnome/{id}', 'GnomesController@getGnome');
+Route::put('/gnome/{id}', 'GnomesController@updateGnome');
+Route::delete('/gnome/{id}', 'GnomesController@deleteGnome');
 
