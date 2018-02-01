@@ -24,10 +24,11 @@ class GnomesTest extends TestCase
 
     public function testStoringGnome()
     {
-        $response = $this->post('/api/gnome', $this->testGnome);
+        $response = $this->post('/api/gnome/', $this->testGnome);
         $response->assertStatus(201);
 
         $response = $response->json();
+
         $this->assertArrayHasKey('id', $response);
         self::$testGnomeId = $response['id'];
     }
@@ -37,7 +38,7 @@ class GnomesTest extends TestCase
         $gnomeId = self::$testGnomeId;
 
         if($gnomeId) {
-            $response = $this->get('/api/gnome' . $gnomeId);
+            $response = $this->get('/api/gnome/' . $gnomeId);
             $response->assertStatus(200);
 
             $gnome = $response->json();
@@ -54,10 +55,10 @@ class GnomesTest extends TestCase
 
         if ($gnomeId) {
             $gnome = ['age' => 11, 'strength' => 11];
-            $response = $this->put('/api/gnome' . $gnomeId, $gnome);
+            $response = $this->put('/api/gnome/' . $gnomeId, $gnome);
             $response->assertStatus(200);
 
-            $response = $this->get('/api/gnome' . $gnomeId);
+            $response = $this->get('/api/gnome/' . $gnomeId);
             $response->assertStatus(200);
 
             $gnome = $response->json();
@@ -72,10 +73,10 @@ class GnomesTest extends TestCase
         $gnomeId = self::$testGnomeId;
 
         if ($gnomeId) {
-            $response = $this->delete('/api/gnome' . $gnomeId);
-            $response->assertStatus('200');
+            $response = $this->delete('/api/gnome/' . $gnomeId);
+            $response->assertStatus(200);
 
-            $response = $this->get('/api/gnome' . $gnomeId);
+            $response = $this->get('/api/gnome/' . $gnomeId);
             $response->assertStatus(404);
         }
     }

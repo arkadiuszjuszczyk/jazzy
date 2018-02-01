@@ -9,4 +9,8 @@ class Gnome extends Model
     protected $fillable = [
         'name', 'age', 'strength'
     ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }
