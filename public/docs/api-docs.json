@@ -1,0 +1,203 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/gnomes": {
+            "get": {
+                "description": "Returns all gnomes.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gnomes",
+                        "schema": {
+                            "type": "json",
+                            "items": {
+                                "$ref": "#/definitions/Gnome"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/gnome/{id}": {
+            "get": {
+                "description": "Returns one specified gnome.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gnome to update.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gnome",
+                        "schema": {
+                            "type": "json",
+                            "items": {
+                                "$ref": "#/definitions/Gnome"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the specified gnome.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gnome to update.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Name of the gnome.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "string"
+                    },
+                    {
+                        "name": "age",
+                        "in": "body",
+                        "description": "Age of the gnome.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "int64"
+                    },
+                    {
+                        "name": "strength",
+                        "in": "body",
+                        "description": "Strength of the gnome.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gnomes",
+                        "schema": {
+                            "type": "json",
+                            "items": {
+                                "$ref": "#/definitions/Gnome"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes the specified gnome.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gnome to delete.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gnome deleted."
+                    }
+                }
+            }
+        },
+        "/gnome": {
+            "post": {
+                "description": "Creates a new gnome.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Name of the gnome.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "string"
+                    },
+                    {
+                        "name": "age",
+                        "in": "body",
+                        "description": "Age of the gnome.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "int64"
+                    },
+                    {
+                        "name": "strength",
+                        "in": "body",
+                        "description": "Strength of the gnome.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Gnome"
+                        },
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gnomes",
+                        "schema": {
+                            "type": "json",
+                            "items": {
+                                "$ref": "#/definitions/Gnome"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Gnome": {
+            "required": [
+                "name",
+                "age",
+                "strength"
+            ],
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "age": {
+                    "type": "number"
+                },
+                "strength": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
