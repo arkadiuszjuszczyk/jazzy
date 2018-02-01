@@ -6,6 +6,7 @@ To install and launch the project:
 * cp .env.example .env
 * populate .env file with your database credentials
 * php artisan migrate
+* php artisan storage:link
 * php artisan serve
 
 Enjoy!

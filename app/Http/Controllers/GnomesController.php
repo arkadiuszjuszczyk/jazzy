@@ -90,6 +90,14 @@ class GnomesController extends Controller
      *         format="int64",
      *         @SWG\Schema(ref="#/definitions/Gnome")
      *     ),
+     *     @SWG\Parameter(
+     *         name="avatar",
+     *         in="body",
+     *         description="Avatar of the gnome.",
+     *         required=false,
+     *         format="image",
+     *         @SWG\Schema(ref="#/definitions/Gnome")
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Gnomes",
@@ -104,12 +112,13 @@ class GnomesController extends Controller
      */
     public function createGnome(Request $request): JsonResponse
     {
-        $data = $request->only(['name', 'age', 'strength']);
+        $data = $request->only(['name', 'age', 'strength', 'avatar']);
 
         $validator = Validator::make($data, [
             'name' => 'required|string',
             'age' => 'required|integer',
-            'strength' => 'required|integer'
+            'strength' => 'required|integer',
+            'avatar' => 'file'
         ], [
             '*.required' => 'The field is required.',
             '*.integer' => 'The field must be an integer.',
@@ -119,6 +128,9 @@ class GnomesController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);
         }
+
+        $avatarPath = isset($data['avatar']) ? $request->file('avatar')->store('avatars') : null;
+        $data['avatar'] = $avatarPath;
 
         $gnome = Gnome::create($data);
         $gnomeId = $gnome['id'] ?? null;
@@ -163,6 +175,14 @@ class GnomesController extends Controller
      *         format="int64",
      *         @SWG\Schema(ref="#/definitions/Gnome")
      *     ),
+     *     @SWG\Parameter(
+     *         name="avatar",
+     *         in="body",
+     *         description="Avatar of the gnome.",
+     *         required=false,
+     *         format="image",
+     *         @SWG\Schema(ref="#/definitions/Gnome")
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Gnomes",
@@ -178,12 +198,13 @@ class GnomesController extends Controller
      */
     public function updateGnome(Request $request, int $id): JsonResponse
     {
-        $data = $request->only(['name', 'age', 'strength']);
+        $data = $request->only(['name', 'age', 'strength', 'avatar']);
 
         $validator = Validator::make($data, [
             'name' => 'string',
             'age' => 'integer',
-            'strength' => 'integer'
+            'strength' => 'integer',
+            'avatar' => 'file'
         ], [
             '*.integer' => 'The field must be an integer.',
             '*.string' => 'The field bust be a string.'
@@ -196,6 +217,9 @@ class GnomesController extends Controller
         $gnome = Gnome::find($id);
 
         if ($gnome) {
+            $avatarPath = isset($data['avatar']) ? $request->file('avatar')->store('avatars') : null;
+            $data['avatar'] = $avatarPath;
+
             $gnome->update($data);
             return response()->json();
         }

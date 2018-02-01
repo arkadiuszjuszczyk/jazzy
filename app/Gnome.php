@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gnome extends Model
 {
     protected $fillable = [
-        'name', 'age', 'strength'
+        'name', 'age', 'strength', 'avatar'
     ];
 
     protected $hidden = [
@@ -40,4 +40,10 @@ class Gnome extends Model
      * @SWG\Property()
      */
     public $strength;
+
+    /**
+     * @var string
+     * @SWG\Property()
+     */
+    public $avatar;
 }

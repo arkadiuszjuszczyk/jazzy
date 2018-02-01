@@ -18,6 +18,7 @@ class CreateGnomesTable extends Migration
             $table->string('name');
             $table->integer('age');
             $table->integer('strength');
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
